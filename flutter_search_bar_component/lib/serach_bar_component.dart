@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_components/data.dart';
 
 class SerachBarComponent extends StatefulWidget {
   const SerachBarComponent({super.key});
@@ -8,24 +9,51 @@ class SerachBarComponent extends StatefulWidget {
 }
 
 class _SerachBarComponentState extends State<SerachBarComponent> {
+  List<String> filteredData = [];
+
+  searchResults(String query) {
+    query.length >= 3
+        ? setState(
+            () {
+              filteredData = data
+                  .where(
+                    (item) => item.toLowerCase().contains(
+                          query.toLowerCase(),
+                        ),
+                  )
+                  .toList();
+            },
+          )
+        : setState(
+            () {
+              filteredData.clear();
+            },
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-              margin: EdgeInsets.only(top: 40, left: 20, right: 20),
-              child: TextField(
-                decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: EdgeInsets.all(15),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    )),
-              )),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: TextField(
+            onChanged: (value) => searchResults(value),
+            decoration: InputDecoration(
+                hintText: 'Search Countries',
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: const EdgeInsets.all(15),
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                )),
+          ),
+        ),
+        body: ListView.builder(
+            itemCount: filteredData.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(filteredData[index]),
+              );
+            }));
   }
 }
