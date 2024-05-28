@@ -1,3 +1,3 @@
-# flutter_components
+# search_bar
 
 A new Flutter project.
