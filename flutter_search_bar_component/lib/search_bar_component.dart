@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_components/data.dart';
 
-class SerachBarComponent extends StatefulWidget {
-  const SerachBarComponent({super.key});
+class SearchBarComponent extends StatefulWidget {
+  const SearchBarComponent({super.key});
 
   @override
-  State<SerachBarComponent> createState() => _SerachBarComponentState();
+  State<SearchBarComponent> createState() => _SearchBarComponentState();
 }
 
-class _SerachBarComponentState extends State<SerachBarComponent> {
+class _SearchBarComponentState extends State<SearchBarComponent> {
   List<String> filteredData = [];
 
   searchResults(String query) {
